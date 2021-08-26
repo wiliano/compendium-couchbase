@@ -1,0 +1,47 @@
+version: "3"
+services:
+  # creating couchbase docker compose files
+  # define couchbase 1
+  couchbase1:
+  # get the image from the couchbase/server
+    image: couchbase:community-6.6.0
+    container_name: couchbase1
+    volumes:
+      - ~/couchbase/node1:/opt/couchbase/var
+    networks:
+      couchbase-net:
+        ipv4_address: 172.20.0.11
+
+  # define couchbase 2
+  couchbase2:
+  # get couchbase image for couchbase 2
+    image: couchbase:community-6.6.0
+    container_name: couchbase2
+    volumes:
+      - ~/couchbase/node2:/opt/couchbase/var
+    networks:
+      couchbase-net:
+        ipv4_address: 172.20.0.12
+
+  # define couchbase 3 and retrieve its image
+  couchbase3:
+    image: couchbase:community-6.6.0
+    container_name: couchbase3
+    volumes:
+      - ~/couchbase/node3:/opt/couchbase/var
+    networks:
+      couchbase-net:
+        ipv4_address: 172.20.0.13
+
+  # define our application ports
+    ports:
+      - 8091:8091
+      - 8092:8092 
+      - 8093:8093 
+      - 11210:11210
+
+networks:
+  couchbase-net:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
