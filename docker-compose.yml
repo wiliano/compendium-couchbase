@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 services:
   # creating couchbase docker compose files
   # define couchbase 1
@@ -42,6 +42,8 @@ services:
 
 networks:
   couchbase-net:
+    name: couchbase-net
+    driver: bridge
     ipam:
       config:
         - subnet: 172.20.0.0/24
