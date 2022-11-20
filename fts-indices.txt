@@ -1,0 +1,152 @@
+curl -XPUT -H "Content-Type: application/json" \
+-u Administrator:Bellaboo91 http://127.0.0.1:8094/api/index/category_name_fts_idx -d \
+'{
+  "type": "fulltext-index",
+  "name": "category_name_fts_idx",
+  "uuid": "",
+  "sourceType": "couchbase",
+  "sourceName": "data",
+  "sourceUUID": "",
+  "planParams": {
+    "maxPartitionsPerPIndex": 171,
+    "indexPartitions": 6
+  },
+  "params": {
+    "doc_config": {
+      "docid_prefix_delim": "",
+      "docid_regexp": "",
+      "mode": "type_field",
+      "type_field": "type"
+    },
+    "mapping": {
+      "analysis": {},
+      "default_analyzer": "standard",
+      "default_datetime_parser": "dateTimeOptional",
+      "default_field": "_all",
+      "default_mapping": {
+        "dynamic": true,
+        "enabled": false
+      },
+      "default_type": "_default",
+      "docvalues_dynamic": true,
+      "index_dynamic": true,
+      "store_dynamic": false,
+      "type_field": "_type",
+      "types": {
+        "CAT": {
+          "dynamic": false,
+          "enabled": true,
+          "properties": {
+            "name": {
+              "dynamic": false,
+              "enabled": true,
+              "fields": [
+                {
+                  "docvalues": true,
+                  "include_in_all": true,
+                  "include_term_vectors": true,
+                  "index": true,
+                  "name": "name",
+                  "store": true,
+                  "type": "text"
+                }
+              ]
+            },
+            "path": {
+              "dynamic": false,
+              "enabled": true,
+              "fields": [
+                {
+                  "docvalues": true,
+                  "include_in_all": true,
+                  "name": "path",
+                  "store": true,
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "store": {
+      "indexType": "scorch"
+    }
+  },
+  "sourceParams": {}
+}'
+
+curl -XPUT -H "Content-Type: application/json" \
+-u Administrator:Bellaboo91 http://127.0.0.1:8094/api/index/organization_name_fts_idx -d \
+'{
+  "type": "fulltext-index",
+  "name": "organization_name_fts_idx",
+  "uuid": "",
+  "sourceType": "couchbase",
+  "sourceName": "data",
+  "sourceUUID": "",
+  "planParams": {
+    "maxPartitionsPerPIndex": 171,
+    "indexPartitions": 6
+  },
+  "params": {
+    "doc_config": {
+      "docid_prefix_delim": "",
+      "docid_regexp": "",
+      "mode": "type_field",
+      "type_field": "type"
+    },
+    "mapping": {
+      "analysis": {
+        "analyzers": {
+          "standard_with_stopwords": {
+            "token_filters": [
+              "to_lower"
+            ],
+            "tokenizer": "unicode",
+            "type": "custom"
+          }
+        }
+      },
+      "default_analyzer": "standard_with_stopwords",
+      "default_datetime_parser": "dateTimeOptional",
+      "default_field": "_all",
+      "default_mapping": {
+        "dynamic": true,
+        "enabled": false
+      },
+      "default_type": "_default",
+      "docvalues_dynamic": true,
+      "index_dynamic": true,
+      "store_dynamic": false,
+      "type_field": "_type",
+      "types": {
+        "ORG": {
+          "dynamic": false,
+          "enabled": true,
+          "properties": {
+            "name": {
+              "dynamic": false,
+              "enabled": true,
+              "fields": [
+                {
+                  "docvalues": true,
+                  "include_in_all": true,
+                  "include_term_vectors": true,
+                  "index": true,
+                  "name": "name",
+                  "store": true,
+                  "type": "text"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "store": {
+      "indexType": "scorch"
+    }
+  },
+  "sourceParams": {}
+}'
